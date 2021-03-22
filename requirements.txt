@@ -1,0 +1,4 @@
+Pillow==8.1.2
+pyTelegramBotAPI==3.7.6
+requests
+python-decouple

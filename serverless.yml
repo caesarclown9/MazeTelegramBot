@@ -1,0 +1,35 @@
+org: caesarclown9
+app: mazebotapp
+service: mazebotapp
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: python3.8
+  lambdaHashingVersion: 20201221
+
+functions:
+  # rateHandler:
+  #   handler: handler.run
+  #   events:
+  #     # Invoke Lambda function every minute
+  #     - schedule: rate(1 minute)
+  cronHandler:
+    handler: handler.run
+    events:
+      # Invoke Lambda function at 12:00 everyday
+      - schedule: cron(0 12 * * ? *)
+
+  say_meow:
+    handler: handler.say_meow
+    events:
+      - http:
+        path: my-custom-url
+        method: post
+        cors: true
+
+
+plugins:
+  - serverless-python-requirements
+  - serverless-local-schedule
